@@ -1,0 +1,17 @@
+15:19:45 **** Incremental Build of configuration Debug for project code_e_ink ****
+make -j8 all 
+arm-none-eabi-gcc "D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/src/EPD_2in9bc_test.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"src/EPD_2in9bc_test.d" -MT"src/EPD_2in9bc_test.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "src/EPD_2in9bc_test.o"
+arm-none-eabi-gcc -o "code_e_ink.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\tai_lieu_quan_trong\Embedded_system\code_e_ink_version_2\code_e_ink\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code_e_ink.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: code_e_ink.elf
+ 
+arm-none-eabi-size  code_e_ink.elf 
+arm-none-eabi-objdump -h -S code_e_ink.elf  > "code_e_ink.list"
+   text	   data	    bss	    dec	    hex	filename
+  34580	    144	   2176	  36900	   9024	code_e_ink.elf
+Finished building: default.size.stdout
+ 
+Finished building: code_e_ink.list
+ 
+
+15:19:46 Build Finished. 0 errors, 0 warnings. (took 1s.707ms)
+
