@@ -8,5 +8,5 @@
 ../Core/Src/main.c:274:13:MX_SPI1_Init	2
 ../Core/Src/main.c:312:13:MX_USART1_UART_Init	2
 ../Core/Src/main.c:345:13:MX_GPIO_Init	1
-../Core/Src/main.c:377:6:HAL_UART_RxCpltCallback	4
-../Core/Src/main.c:398:6:Error_Handler	1
+../Core/Src/main.c:388:6:HAL_UART_RxCpltCallback	4
+../Core/Src/main.c:409:6:Error_Handler	1
