@@ -1,35 +1,35 @@
-15:14:07 **** Incremental Build of configuration Debug for project code_e_ink ****
+11:29:16 **** Incremental Build of configuration Debug for project code_e_ink ****
 make -j8 all 
-arm-none-eabi-gcc "D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/src/EPD_2in9bc_test.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"src/EPD_2in9bc_test.d" -MT"src/EPD_2in9bc_test.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "src/EPD_2in9bc_test.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:211:11: warning: unused variable 'previous_time' [-Wunused-variable]
+  211 |  uint32_t previous_time = HAL_GetTick();
+      |           ^~~~~~~~~~~~~
 arm-none-eabi-gcc -o "code_e_ink.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\tai_lieu_quan_trong\Embedded_system\code_e_ink_version_2\code_e_ink\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code_e_ink.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: code_e_ink.elf
  
 arm-none-eabi-size  code_e_ink.elf 
 arm-none-eabi-objdump -h -S code_e_ink.elf  > "code_e_ink.list"
    text	   data	    bss	    dec	    hex	filename
-  34572	    144	   2176	  36892	   901c	code_e_ink.elf
+  13992	     12	   1828	  15832	   3dd8	code_e_ink.elf
+arm-none-eabi-objcopy  -O ihex code_e_ink.elf  "code_e_ink.hex"
 Finished building: default.size.stdout
+ 
+Finished building: code_e_ink.hex
  
 Finished building: code_e_ink.list
  
-15:14:14 **** Incremental Build of configuration Debug for project code_e_ink ****
+11:29:21 **** Incremental Build of configuration Debug for project code_e_ink ****
 make -j8 all 
 arm-none-eabi-size  code_e_ink.elf 
    text	   data	    bss	    dec	    hex	filename
-  34572	    144	   2176	  36892	   901c	code_e_ink.elf
+  13992	     12	   1828	  15832	   3dd8	code_e_ink.elf
 Finished building: default.size.stdout
  
-15:19:45 **** Incremental Build of configuration Debug for project code_e_ink ****
+11:30:09 **** Incremental Build of configuration Debug for project code_e_ink ****
 make -j8 all 
-arm-none-eabi-gcc "D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/src/EPD_2in9bc_test.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -I"D:/tai_lieu_quan_trong/Embedded_system/code_e_ink_version_2/code_e_ink/Mylibrary/inc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"src/EPD_2in9bc_test.d" -MT"src/EPD_2in9bc_test.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "src/EPD_2in9bc_test.o"
-arm-none-eabi-gcc -o "code_e_ink.elf" @"objects.list"   -mcpu=cortex-m3 -T"D:\tai_lieu_quan_trong\Embedded_system\code_e_ink_version_2\code_e_ink\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="code_e_ink.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: code_e_ink.elf
- 
 arm-none-eabi-size  code_e_ink.elf 
-arm-none-eabi-objdump -h -S code_e_ink.elf  > "code_e_ink.list"
    text	   data	    bss	    dec	    hex	filename
-  34580	    144	   2176	  36900	   9024	code_e_ink.elf
+  13992	     12	   1828	  15832	   3dd8	code_e_ink.elf
 Finished building: default.size.stdout
- 
-Finished building: code_e_ink.list
  
