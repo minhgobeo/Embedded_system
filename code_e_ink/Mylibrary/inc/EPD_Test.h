@@ -37,5 +37,10 @@
 #include <stdlib.h> // malloc() free()
 
 int EPD_test(void);
+void default_mode(int *flag_main_screen, int hour, int minute, int second);
+void menu_set_up (int *flag_set_up,  SYSTEM_MODE *mode, uint8_t *count);
+void alarm_view_mode (int *flag_alarm_view_mode_set_up,  uint8_t *count_view, uint8_t *count_select, SYSTEM_PARAM_DATA_ALARM_VIEW_MODE *alarm_view_mode);
+void alarm_setup_mode(int *flag_alarm_set_up_mode, uint8_t *count_view, uint8_t *count_select, uint8_t *count_edit, SYSTEM_PARAM_DATA_ALARM_VIEW_MODE *alarm_view_mode);
+void time_setup_mode(int *flag_time_set_up_mode, uint8_t *count_edit, SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *time_setup_param);
 
 #endif

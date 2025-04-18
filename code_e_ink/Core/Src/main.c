@@ -36,6 +36,7 @@ typedef struct {
 	uint8_t year;
 } TIME;
 
+
 TIME time;
 /* USER CODE END PTD */
 
@@ -60,7 +61,38 @@ UART_HandleTypeDef huart1;
 /* USER CODE BEGIN PV */
 char buffer[15];
 uint8_t rxData;
-
+int flag_main_screen = 1;
+uint8_t count = 5;
+uint8_t count_view = 5;
+uint8_t count_edit = 0;
+int hour = 12;
+int minute = 34;
+int second = 0;
+//system mode
+SYSTEM_MODE sSystem_mode = DEFAULT_MODE;
+// parameter alarm data setup mode
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_1;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_2;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_3;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_4;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_5;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_6;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_7;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_8;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_9;
+SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_10;
+//struct for view mode
+SYSTEM_PARAM_DATA_ALARM_VIEW_MODE sParam_data_alarm_view_mode = {
+  &sParam_data_alarm_setup_mode_1,
+  &sParam_data_alarm_setup_mode_2,
+  &sParam_data_alarm_setup_mode_3,
+  &sParam_data_alarm_setup_mode_4,
+  &sParam_data_alarm_setup_mode_5,
+  &sParam_data_alarm_setup_mode_6,
+  &sParam_data_alarm_setup_mode_7,
+  &sParam_data_alarm_setup_mode_8,
+  &sParam_data_alarm_setup_mode_9,
+  &sParam_data_alarm_setup_mode_10};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -166,7 +198,6 @@ int main(void)
   MX_USART1_UART_Init();
   MX_I2C1_Init();
   /* USER CODE BEGIN 2 */
- EPD_test();
   Set_Time
    (
  	00,	// Second
@@ -177,6 +208,8 @@ int main(void)
  	2,  // Month
  	25  // Year (20**)
    );
+ uint32_t previous_time = HAL_GetTick();
+ //EPD_test();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -186,9 +219,57 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  //Get_Time();
-
-	  HAL_Delay(10000);
+	    Get_Time();
+	    HAL_Delay(1000);
+//	  if(HAL_GetTick() - previous_time > 1000)
+//	  {
+//		  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+//		  second += 1;
+//		  count++;
+//      count_edit++ ;
+//
+//      switch (count)
+//      {
+//        case 0:
+//        sSystem_mode = DEFAULT_MODE;
+//        break;
+//
+//        case 1:
+//        sSystem_mode = TIME_SETUP_MODE;
+//        break;
+//
+//        case 2:
+//        sSystem_mode = ALARM_SETUP_MODE;
+//        break;
+//
+//        case 3:
+//        sSystem_mode = ALARM_REVIEW_MODE;
+//        break;
+//
+//        case 4:
+//        sSystem_mode = ALARM_ACTIVE_MODE;
+//        break;
+//
+//        case 5:
+//        sSystem_mode = SYSTEM_OPTIONS_MODE;
+//        break;
+//
+//      default:
+//        break;
+//      }
+//		  previous_time = HAL_GetTick();
+////		  default_mode(&flag_main_screen, hour, minute, second);
+//      menu_set_up (&flag_main_screen, &sSystem_mode, &count);
+//      //alarm_view_mode (&flag_main_screen, &count_view, &count, &sParam_data_alarm_view_mode);
+//      //alarm_setup_mode(&flag_main_screen, &count_view, &count, &sParam_data_alarm_view_mode);
+//      //alarm_setup_mode(&flag_main_screen, &count_view,  &count, &count_edit, &sParam_data_alarm_view_mode);
+//      //time_setup_mode(&flag_main_screen, &count_edit, &sParam_data_alarm_setup_mode_1);
+//	  }
+//	 if(count == 0)
+//	 {
+//		//  flag_main_screen = 1;
+//    //  count_view++;
+//	 }
   }
   /* USER CODE END 3 */
 }
@@ -349,12 +430,23 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, RST_Pin|DC_Pin|SPI_CS_Pin|PWR_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin : PC13 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : BUSY_Pin */
   GPIO_InitStruct.Pin = BUSY_Pin;
@@ -368,6 +460,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 /* USER CODE BEGIN MX_GPIO_Init_2 */
 /* USER CODE END MX_GPIO_Init_2 */

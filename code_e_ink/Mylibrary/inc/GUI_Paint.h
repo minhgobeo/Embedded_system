@@ -67,6 +67,7 @@
 
 #include "DEV_Config.h"
 #include "fonts.h"
+#include "stdbool.h"
 
 /**
  * Image attributes
@@ -177,6 +178,59 @@ typedef struct {
     UBYTE  Sec;   //0 - 59
 } PAINT_TIME;
 extern PAINT_TIME sPaint_time;
+/**
+ * USER follow structure
+**/
+/* System mode*/
+typedef enum {
+    DEFAULT_MODE,
+    TIME_SETUP_MODE,
+    ALARM_SETUP_MODE,
+    ALARM_REVIEW_MODE,
+    ALARM_ACTIVE_MODE,
+    SYSTEM_OPTIONS_MODE
+  } SYSTEM_MODE;
+extern SYSTEM_MODE sSystem_mode;
+/*Time alarm setup mode */
+// struct parameter
+typedef struct
+{
+  uint8_t           second;   // Seconds: 0-59
+  uint8_t           minute;   // Minutes: 0-59
+  uint8_t           hour;     // Hours: 0-23
+  uint8_t           dow;      // Day of the week: 1-7 (1 = Sunday, 2 = Monday, ..., 7 = Saturday), or Date of the month: 1-31
+  uint8_t           dom;      // Date of the month: 1-31, or Day of the week: 1-7, or not used: 0
+  uint8_t           month;    // Month: 1-12
+  uint8_t           year;     // Year: 0-99 (0 = 2000, 1 = 2001, ..., 99 = 2099)
+  bool              on_off;   // true = ON, false = OFF
+} SYSTEM_PARAM_DATA_ALARM_SETUP_MODE;
+
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_1;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_2;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_3;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_4;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_5;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_6;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_7;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_8;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_9;
+extern SYSTEM_PARAM_DATA_ALARM_SETUP_MODE sParam_data_alarm_setup_mode_10;
+// system view
+typedef struct 
+{
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_1;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_2;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_3;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_4;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_5;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_6;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_7;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_8;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_9;
+    SYSTEM_PARAM_DATA_ALARM_SETUP_MODE *sParam_data_alarm_setup_mode_10;
+} SYSTEM_PARAM_DATA_ALARM_VIEW_MODE;
+
+extern SYSTEM_PARAM_DATA_ALARM_VIEW_MODE sParam_data_alarm_view_mode;
 
 //init and Clear
 void Paint_NewImage(UBYTE *image, UWORD Width, UWORD Height, UWORD Rotate, UWORD Color);

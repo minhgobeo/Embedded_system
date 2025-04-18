@@ -53,6 +53,9 @@ default.size.stdout \
 OBJDUMP_LIST += \
 code_e_ink.list \
 
+OBJCOPY_HEX += \
+code_e_ink.hex \
+
 
 # All Target
 all: main-build
@@ -76,12 +79,17 @@ code_e_ink.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
+code_e_ink.hex: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objcopy  -O ihex $(EXECUTABLES) "code_e_ink.hex"
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) code_e_ink.elf code_e_ink.list code_e_ink.map default.size.stdout
+	-$(RM) code_e_ink.elf code_e_ink.hex code_e_ink.list code_e_ink.map default.size.stdout
 	-@echo ' '
 
-secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
+secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST) $(OBJCOPY_HEX)
 
 fail-specified-linker-script-missing:
 	@echo 'Error: Cannot find the specified linker script. Check the linker settings in the build configuration.'
